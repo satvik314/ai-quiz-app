@@ -2,3 +2,4 @@ openai
 langchain
 plotly
 streamlit
+sentence_transformers
