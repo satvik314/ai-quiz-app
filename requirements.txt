@@ -5,3 +5,4 @@ streamlit
 sentence_transformers
 chromadb
 SQLAlchemy
+Pillow
