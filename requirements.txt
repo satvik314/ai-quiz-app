@@ -3,3 +3,4 @@ langchain
 plotly
 streamlit
 sentence_transformers
+chromadb
