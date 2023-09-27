@@ -12,7 +12,7 @@ from langchain.embeddings import SentenceTransformerEmbeddings
 
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
-llm = ChatOpenAI(model_name='gpt-4', temperature=0.0)
+llm = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0.0)
 memory = ConversationBufferMemory()
 
 
@@ -66,7 +66,7 @@ def create_ques_ans(number_of_qn,board,classe, subject , lesson , topic,standard
     # and fifth element should be the complete correct option to the question exactly as in options .avoid unnecesary text connotations,
     # extra whitespaces and also avoid newlines anywhere , terminate the lists and strings correctly"""
     
-    llm = ChatOpenAI(model = "gpt-4")
+    llm = ChatOpenAI(model = "gpt-3.5-turbo")
 
     embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
     with open(os.getcwd()+'/Vector_DB/CBSE-9th-Motion.pkl','rb') as f:
@@ -137,7 +137,7 @@ def report(list,score,total):
     template =f"""U are provided with a list of questions {{question}} and list of coreesponding answers{list[1]} marked .
     Suggest if any reading or clairty is required in concepts. dont write anythign unnecesary"""
     prompt = PromptTemplate.from_template(template)
-    gpt4_model = ChatOpenAI(model="gpt-4",temperature=0.8)
+    gpt4_model = ChatOpenAI(model="gpt-3.5-turbo",temperature=0.8)
     quizzer = LLMChain(prompt = prompt, llm = gpt4_model)
     a=quizzer.run(question=list[0])
     return a

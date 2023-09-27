@@ -4,4 +4,4 @@ plotly
 streamlit
 sentence_transformers
 chromadb
-sqlite3
+pysqlite3
