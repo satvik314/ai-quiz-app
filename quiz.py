@@ -27,7 +27,7 @@ def app():
 
     topic = topic_placeholder.text_input("Enter the topic")
 
-    standard = standard_placeholder.selectbox("select the standard", ["Basic", "Intermediate", "Advanced"])
+    standard = standard_placeholder.selectbox("Select the standard", ["Basic", "Intermediate", "Advanced"])
     n = n_placeholder.number_input("Number of questions", min_value=1, max_value=25, value=1, step=1)
 
     if st.button("Generate"):
