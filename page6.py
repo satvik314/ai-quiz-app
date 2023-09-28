@@ -72,7 +72,6 @@ def app():
             standard_placeholder.empty()
             with st.spinner(f"Generating Quiz "):
                 session_state.quiz_data = create_ques_ans(n, stud.get_board() ,stud.get_std() , stud.get_subject() , stud.get_lesson() , topic ,standard)
-                    
             # except Exception as e :
             #         st.error("Please select valid number")
     if session_state.quiz_data:

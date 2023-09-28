@@ -12,7 +12,7 @@ from langchain.embeddings import SentenceTransformerEmbeddings
 
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
-llm = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=0.0)
+llm = ChatOpenAI(model_name='gpt-4', temperature=0.0)
 memory = ConversationBufferMemory()
 
 
@@ -46,7 +46,6 @@ def sort_objects(obj_list):
 
     return [question,options,correct]
 
-
 def create_ques_ans(number_of_qn,board,classe, subject , lesson , topic,standard):
     if standard == "Basic":
         level="Remembering, Understanding"
@@ -54,20 +53,20 @@ def create_ques_ans(number_of_qn,board,classe, subject , lesson , topic,standard
         level="Applying, Analyzing"
     if standard == "Advanced":
         level="Evaluating or complex numerical"
-    
+
     # template =f"""Prepare {number_of_qn} multiple choice questions on {board} board {classe} ,{subject} subject , {lesson} on {topic}
     # in {level} levels of blooms taxonomy. generate a python list which contains {number_of_qn} sublists . In each python sublist ,
-    # first element should be the question. Second , third and fourth elements should be the only 3 options , 
+    # first element should be the question. Second , third and fourth elements should be the only 3 options ,
     # and fifth element should be the complete correct option to the question exactly as in options .avoid unnecesary text connotations,
     # extra whitespaces and also avoid newlines anywhere , terminate the lists and strings correctly"""
     template=template =f"""Create {number_of_qn} multiple choice questions on {lesson} on {topic} with 3 options
     in {level} levels of blooms taxonomy. """
     # generate a python list which contains {number_of_qn} sublists . In each python sublist ,
-    # first element should be the question. Second , third and fourth elements should be the only 3 options , 
+    # first element should be the question. Second , third and fourth elements should be the only 3 options ,
     # and fifth element should be the complete correct option to the question exactly as in options .avoid unnecesary text connotations,
     # extra whitespaces and also avoid newlines anywhere , terminate the lists and strings correctly"""
-    
-    llm = ChatOpenAI(model = "gpt-3.5-turbo")
+
+    llm = ChatOpenAI(model = "gpt-4")
 
     embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
     with open(os.getcwd()+'/Vector_DB/CBSE-9th-Motion.pkl','rb') as f:
@@ -87,14 +86,14 @@ def create_ques_ans(number_of_qn,board,classe, subject , lesson , topic,standard
     },
     "required" : ["question", "options","correct_answer"]
     }
-    
+
     llm2=ChatOpenAI(model="gpt-3.5-turbo-0613")
     chain = create_extraction_chain(schema, llm2)
     response = chain.run(answer)
-     
-    return sort_objects(response) 
+
+    return sort_objects(response)
 def report(list,score,total):
-    
+
     # Create the linear graph (line plot) with labeled sections
     fig = go.Figure()
 
@@ -102,7 +101,7 @@ def report(list,score,total):
     fig.add_trace(go.Scatter(x=[0, total], y=[0, 100], mode='lines', line=dict(color='gray', dash='dash'), name='Diagonal Line'))
     fig.add_trace(go.Scatter(x=[0.4*total, 0.4*total], y=[0, 120], mode='lines', line=dict(color='red', dash='dash'), name='40% Line'))
     fig.add_trace(go.Scatter(x=[0.75*total, 0.75*total], y=[0, 120], mode='lines', line=dict(color='blue', dash='dash'), name='75% Line'))
- 
+
     point_x = score  # Replace this with the number of correct answers you want to plot
     point_y = (score / total) * 100  # Calculate the percentage for the given point
     fig.add_trace(go.Scatter(x=[point_x], y=[point_y], mode='markers', marker=dict(color='green', size=10), name='Plotted Point'))
@@ -134,10 +133,11 @@ def report(list,score,total):
     # Display the plot in Streamlit app using st.plotly_chart()
     st.plotly_chart(fig)
 
+
     template =f"""U are provided with a list of questions {{question}} and list of coreesponding answers{list[1]} marked .
     Suggest if any reading or clairty is required in concepts. dont write anythign unnecesary"""
     prompt = PromptTemplate.from_template(template)
-    gpt4_model = ChatOpenAI(model="gpt-3.5-turbo",temperature=0.8)
+    gpt4_model = ChatOpenAI(model="gpt-4",temperature=0.8)
     quizzer = LLMChain(prompt = prompt, llm = gpt4_model)
     a=quizzer.run(question=list[0])
     return a
