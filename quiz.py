@@ -2,7 +2,7 @@ import sys
 import streamlit as st
 import os
 import pysqlite3
-from ai_components1 import create_ques_ans, report
+from ai_components_quiz import create_ques_ans, report
 
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
