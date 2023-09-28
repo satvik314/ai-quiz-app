@@ -22,8 +22,8 @@ def app():
     n_placeholder = st.empty()
     standard_placeholder = st.empty()
 
-    title_placeholder.title("Welcome to AI Quiz Generator!")
-    subheader.subheader("Test your knowledge on your choice of topic.")
+    title_placeholder.title("Inquiry Based Learning 📖")
+    subheader.subheader("🤖 This AI App will help you learn through questions!")
 
     topic = topic_placeholder.text_input("Enter the topic")
 
