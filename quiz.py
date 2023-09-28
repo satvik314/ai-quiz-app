@@ -18,6 +18,7 @@ def app():
         session_state.score = 0
     title_placeholder = st.empty()
     subheader = st.empty()
+    credit_placeholder = st.empty()
     topic_placeholder = st.empty()
     n_placeholder = st.empty()
     standard_placeholder = st.empty()
@@ -26,7 +27,7 @@ def app():
     subheader.subheader("🤖 This AI App will help you learn through questions!")
 
     linkedin_url = "https://www.linkedin.com/in/satvik-paramkusham"
-    st.markdown(f"Created by [Satvik]({linkedin_url})")
+    credit_placeholder.markdown(f"Created by [Satvik]({linkedin_url})")
 
     topic = topic_placeholder.text_input("Enter the topic")
 
