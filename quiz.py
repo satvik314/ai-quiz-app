@@ -34,7 +34,7 @@ def app():
         st.empty()
         st.empty()
         with st.spinner(f"Generating Quiz "):
-            session_state.quiz_data = create_ques_ans(n, topic, standard)
+            session_state.quiz_data = create_ques_ans(n,topic, standard)
 
     if session_state.quiz_data:
         questions = session_state.quiz_data[0]
